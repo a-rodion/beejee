@@ -1,0 +1,23 @@
+{
+  "name": "vendor_name/beejee",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "rodion",
+      "email": "email@example.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Rodion\\TaskList\\": "src/"
+    }
+  },
+  "require": {
+    "php": "~7.2",
+    "ext-json": "*",
+    "ext-pdo": "*",
+    "daveearley/daves-email-validation-tool": "^0.1.16"
+  }
+}

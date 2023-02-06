@@ -1,0 +1,73 @@
+<?php
+declare(strict_types=1);
+
+use Rodion\TaskList\Helper\AntiXss;
+use Rodion\TaskList\Model\Entity\TaskEntity;
+
+/** @var bool $isAuthorized */
+/** @var TaskEntity $taskEntity */
+
+$userName = '';
+$userEmail = '';
+$taskText = '';
+$isCompletedChecked = '';
+$disabled = '';
+if (isset($taskEntity)) {
+    $userName = AntiXss::encode($taskEntity->userName);
+    $userEmail = AntiXss::encode($taskEntity->userEmail);
+    $taskText = AntiXss::encode($taskEntity->taskText);
+    if ($taskEntity->isCompleted) {
+        $isCompletedChecked = 'checked';
+    }
+    $disabled = 'disabled';
+}
+?>
+<div class="container">
+    <?php if (isset($taskEntity)): ?>
+        <h1>Update Task</h1>
+    <?php else: ?>
+        <h1>Create task</h1>
+    <?php endif; ?>
+    <div class="alert alert-success d-none" role="alert">
+        Update successful! <a href="" class="alert-link">Back to main page</a>
+    </div>
+    <div class="alert alert-danger d-none" role="alert">
+        Error occurred
+    </div>
+    <form method="post" class="needs-validation">
+        <div class="mb-3">
+            <label for="userNameInput" class="form-label">User name</label>
+            <input type="text" name="userName" class="form-control" id="userNameInput" aria-describedby="validationFeedback1"
+                   value="<?=$userName?>" <?=$disabled?> required>
+            <div id="validationFeedback1" class="invalid-feedback">
+                Please fill a valid user name.
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="userEmailInput" class="form-label">Email address</label>
+            <input type="email" name="userEmail" class="form-control" id="userEmailInput" placeholder="name@example.com"
+                   value="<?=$userEmail?>" aria-describedby="validationFeedback2" <?=$disabled?> required>
+            <div id="validationFeedback2" class="invalid-feedback">
+                Please fill a valid email.
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="taskTextArea" class="form-label">Task</label>
+            <textarea class="form-control" name="taskText" id="taskTextArea" rows="3"
+                      aria-describedby="validationFeedback3" required><?=$taskText?></textarea>
+            <div id="validationFeedback3" class="invalid-feedback">
+                Please fill a task text.
+            </div>
+        </div>
+        <?php if ($isAuthorized): ?>
+            <div class="mb-3 form-check">
+                <input class="form-check-input" type="checkbox" name="isCompleted" id="isCompletedCheck" <?=$isCompletedChecked?>>
+                <label for="isCompletedCheck" class="form-check-label">Completed</label>
+            </div>
+        <?php endif; ?>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
+<script src="js/form.js"></script>

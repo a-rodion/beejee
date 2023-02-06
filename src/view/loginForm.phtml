@@ -1,0 +1,29 @@
+<div class="container">
+    <h1>Log in</h1>
+    <div class="alert alert-success d-none" role="alert">
+        Log in successful! <a href="" class="alert-link">Back to main page</a>
+    </div>
+    <div class="alert alert-danger d-none" role="alert">
+        Invalid username or password
+    </div>
+    <form method="post" action="?r=auth/authenticate" class="needs-validation">
+        <div class="mb-3">
+            <label for="loginInput" class="form-label">Login</label>
+            <input name="login" type="text" class="form-control" id="loginInput"
+                   aria-describedby="validationFeedback1" required>
+            <div class="invalid-feedback" id="validationFeedback1">
+                Please fill a login.
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="passwordInput" class="form-label">Password</label>
+            <input name="pass" type="password" class="form-control" id="passwordInput"
+                   aria-describedby="validationFeedback2" required>
+            <div class="invalid-feedback" id="validationFeedback2">
+                Please fill a password.
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+<script src="js/form.js"></script>

@@ -1,0 +1,63 @@
+<?php
+declare(strict_types=1);
+
+/** @var bool $isAuthorized */
+
+?>
+<div class="container">
+    <h1>ToDo list</h1>
+    <div class="row">
+        <div class="col-md-8">
+            <p class="text-start">
+                <a href="?r=task/create">Create task</a>
+            </p>
+        </div>
+        <div class="col-md-4">
+            <p class="text-end">
+                <?php if ($isAuthorized): ?>
+                    <a href="?r=auth/logout">Log out</a>
+                <?php else: ?>
+                    <a href="?r=auth/index">Log in</a>
+                <?php endif; ?>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <table class="table table-striped"
+               data-toggle="table"
+               data-url="?r=task/dataSource"
+               data-sortable="true"
+               data-sort-name="id"
+               data-sort-order="desc"
+               data-sort-reset-page="false"
+               data-pagination="true"
+               data-side-pagination="server"
+               data-page-size="3"
+               data-query-params="queryParams">
+            <thead>
+                <tr>
+                    <th scope="col" data-field="userName" data-sortable="true">
+                        User name
+                    </th>
+                    <th scope="col" data-field="userEmail" data-sortable="true">
+                        User email
+                    </th>
+                    <th scope="col" data-field="taskText">
+                        Task text
+                    </th>
+                    <th scope="col" data-field="isCompleted" data-sortable="true" data-formatter="completedFormatter">
+                        Completed
+                    </th>
+                    <?php if ($isAuthorized): ?>
+                        <th scope="col" data-field="id" data-formatter="linkFormatter"></th>
+                    <?php endif; ?>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.21.2/bootstrap-table.min.js"></script>
+<script src="js/taskList.js"></script>
